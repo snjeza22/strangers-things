@@ -1,3 +1,17 @@
 body {
   font-family: verdana;
 }
+
+input, button{/*input or a button*/
+height: 2rem;
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+}
+
+form > * {/*everything immediately under the form*/
+  margin: 0.5rem;
+
+}
