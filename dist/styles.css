@@ -1,6 +1,12 @@
 body {
   font-family: verdana;
 }
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(233, 215, 237);
+}
 
 input, button{/*input or a button*/
 height: 2rem;
