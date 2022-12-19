@@ -36,7 +36,7 @@ const App = () => {
   const [loginPassword, setLoginPassword] = useState('');
   const [user, setUser] = useState([]);
 
-  useEffect (() => {
+  const exchangeTokenForUser = () =>{
     const token = window.localStorage.getItem('token')// we could name it different
     if(token){
       fetch('https://strangers-things.herokuapp.com/api/2209-FTB-ET-WEB-AM/users/me', {
@@ -51,6 +51,9 @@ const App = () => {
   })
   .catch(err => console.log(err));
     }
+  }
+  useEffect (() => {
+  exchangeTokenForUser()
   },[]);
 
   const login = (ev) => {
@@ -75,18 +78,7 @@ const App = () => {
         }
         const token = result.data.token;
         window.localStorage.setItem('token', token);//we want to call it a token and it will access token
-        fetch('https://strangers-things.herokuapp.com/api/2209-FTB-ET-WEB-AM/users/me', {
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          },
-        })
-          .then(response => response.json())
-          .then(result => {
-            const user = result.data;
-            setUser(user);
-          })
-          .catch(console.error);
+        exchangeTokenForUser()
       })
       .catch(err => console.log(err));
   }
