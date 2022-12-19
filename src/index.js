@@ -46,7 +46,7 @@ const App = () => {
   },
 }).then(response => response.json())
   .then(result => {
-    const user = result.data
+    const user = result.data //user is used to save user information
     setUser(user);
   })
   .catch(err => console.log(err));
@@ -70,6 +70,9 @@ const App = () => {
     })
       .then(response => response.json())
       .then(result => {
+        if(!result.success){//since we are in Promise we can throw
+          throw result.error.message;
+        }
         const token = result.data.token;
         window.localStorage.setItem('token', token);//we want to call it a token and it will access token
         fetch('https://strangers-things.herokuapp.com/api/2209-FTB-ET-WEB-AM/users/me', {
@@ -105,6 +108,9 @@ const App = () => {
     })
       .then(response => response.json())
       .then(result => {
+        if(!result.success){
+          throw result.error.message
+        }
         console.log(result);
       })
       .catch(err => console.log(err));
