@@ -45,19 +45,14 @@ const Login = () => {
           onChange={ev => setLoginUsername(ev.target.value)} />
         <input
           placeholder='password'
+          type = 'password'
           value={loginPassword}
           onChange={ev => setLoginPassword(ev.target.value)} />
 
         <button>Login</button>
       </form>
-          
   </div>
-
-
   );
 };
-
-
-
 
 export default Login;

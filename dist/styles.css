@@ -21,3 +21,13 @@ form > * {/*everything immediately under the form*/
   margin: 0.5rem;
 
 }
+
+.singlePost {
+  border: solid black 1px ;
+}
+.myPost{
+  background-color: cornsilk;
+}
+.notMy{
+  background-color: rgb(190, 233, 219);
+}
