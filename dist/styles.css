@@ -1,20 +1,31 @@
 body {
   font-family: verdana;
+  background-color: antiquewhite;
 }
 nav {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
-  background-color: rgb(233, 215, 237);
+  background-color: rgb(67, 65, 67);
+  color: whitesmoke
 }
 
 input, button{/*input or a button*/
 height: 2rem;
+border-radius: 15%;
 }
 
+button{
+  background-color: rgb(67, 65, 67);
+  color: whitesmoke;
+}
 form{
   display: flex;
   flex-direction: column;
+  
+}
+.selected{
+  color: whitesmoke
 }
 
 form > * {/*everything immediately under the form*/

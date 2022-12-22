@@ -68,25 +68,32 @@ const App = () => {
     <div>
       <nav>
     <h1>Stranger's Things</h1>
-      <Link to='/'>Home</Link>
-      <Link to='/posts'>Posts ({posts.length})</Link>
+
     </nav>
       {
-        user._id ? <div> Welcome {user.username} <button onClick = { logout }>Logout</button>  <Posts posts={posts} token = {token} /></div> : null //if we are not in a "form" we do not need to prevent default
+        user._id ? 
+        <div>
+           <nav>
+         <Link to='/' className = 'selected'>Home</Link>
+      <Link to='/posts' className='selected'>Posts ({posts.length})</Link>
+      <button onClick = { logout }>Logout</button> 
+      </nav>
+         Welcome {user.username}  <Posts posts={posts} token = {token} /></div> : null //if we are not in a "form" we do not need to prevent default
+      
       }
     
       {
         !user._id ? ( //if you do not have a login in it will show us a log in if we have it will just show "Welcome"
-      <div>
-    
+     <div>
+      
       <Register />
       <Login exchangeTokenForUser = {exchangeTokenForUser}/>
    
      
       </div>) : null
-}
+      }
       {/* <Routes>
-        <Route path='/' element={<div></div>} />
+        <Route path='/' element={<div>Home</div>} />
         <Route path='/posts' element={
           <Posts posts={posts} />
         }

@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 
+//import Delete from './Delete';
+
 //import {createPost} from '../api/';
 
 const Posts = (props) => {
@@ -34,13 +36,25 @@ const Posts = (props) => {
     )
       .then((response) => response.json())
       .then((result) => {
-        const post = result.data.posts
-        setPost(post)
+      const post = result.data.posts
+       setPost(post)
         console.log(result);
       })
       .catch(console.error);
   };
+  const deletePost = (_id) => {
 
+    fetch(`https://strangers-things.herokuapp.com/api/2209-FTB-ET-WEB-AM/posts/${_id}`, {
+      
+    method: "DELETE",
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    }
+  }).then(response => response.json())//add fetch
+    
+    .catch(console.error);
+  }
 // 
 
   return (
@@ -77,7 +91,7 @@ const Posts = (props) => {
                 {post.isAuthor ? <button 
               >Edit</button> : null}
                 {/* //null means that if we are not the author that we should not be rendering anything */}
-                {post.isAuthor ? <button >Delete</button> : null}
+                {post.isAuthor ? <button onClick = {()=>{deletePost(post._id)}}>Delete</button> : null}
               </div>
             )
           })
