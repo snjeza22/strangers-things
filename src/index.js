@@ -13,92 +13,75 @@ import Posts from './components/Posts'
 
 const App = () => {
   const [user, setUser] = useState([]);
-  const [posts, setPosts] = useState([]); //we want all app to have access to posts that is why we set the state here not in Posts.js
-  
-  const [token, setToken] = useState(null)
 
-  const fetchPosts = () => {
-    fetch('https://strangers-things.herokuapp.com/api/2209-FTB-ET-WEB-AM/posts', {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
-      } 
-    })
-      .then(response => response.json())
-      .then(json => {
-        console.log(json.data.posts)
-        setPosts(json.data.posts)
-       }) .catch (err => console.log(err))
-      };
+  const [token, setToken] = useState(null);
 
-  const exchangeTokenForUser = () =>{
-    
+
+  const exchangeTokenForUser = () => {
+    // take token from localstorage
     const token = window.localStorage.getItem('token')// we could name it different
     setToken(token)
-    if(token){
+    if (token) {
       fetch('https://strangers-things.herokuapp.com/api/2209-FTB-ET-WEB-AM/users/me', {
-  headers: {
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${token}`
-  },
-}).then(response => response.json())
-  .then(result => {
-    const user = result.data //user is used to save user information
-    setUser(user);
-  })
-  .catch(err => console.log(err));
-  
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+      }).then(response => response.json())
+        .then(result => {
+          const user = result.data //user is used to save user information
+          setUser(user);
+        })
+        .catch(err => console.log(err));
     }
   }
-  useEffect (() => {
-  exchangeTokenForUser()
-  fetchPosts()
-  },[token]);
-  
- const logout = () => {
-  window.localStorage.removeItem('token')
-  setUser({});
-}
+
+
+  useEffect(() => {
+    exchangeTokenForUser()
+    // fetchPosts()
+  }, [token]);
+
+
+  const logout = () => {
+    window.localStorage.removeItem('token')
+    setUser({});
+  }
 
   // useEffect(() => {
-    
+
 
   // }, []);
   return (
     <div>
       <nav>
-    <h1>Stranger's Things</h1>
+        <h1>Stranger's Things</h1>
 
-    </nav>
-      {
-        user._id ? 
-        <div>
-           <nav>
-         <Link to='/' className = 'selected'>Home</Link>
-      <Link to='/posts' className='selected'>Posts ({posts.length})</Link>
-      <button onClick = { logout }>Logout</button> 
       </nav>
-         Welcome {user.username}  <Posts posts={posts} token = {token} /></div> : null //if we are not in a "form" we do not need to prevent default
-      
+      {
+        user._id ?
+          <div>
+            <nav>
+              <Link to='/' className='selected'>Home</Link>
+              <Link to='/posts' className='selected'></Link>
+              <button onClick={logout}>Logout</button>
+            </nav>
+            Welcome {user.username} </div> : null //if we are not in a "form" we do not need to prevent default
       }
-    
+
       {
         !user._id ? ( //if you do not have a login in it will show us a log in if we have it will just show "Welcome"
-     <div>
-      
-      <Register />
-      <Login exchangeTokenForUser = {exchangeTokenForUser}/>
-   
-     
-      </div>) : null
+          <div>
+            <Register />
+            <Login setToken={setToken} />
+          </div>
+        ) : (
+          <Routes>
+            <Route path='/' element={<div>Home</div>} />
+            <Route path='/posts' element={<Posts token={token} />} />
+          </Routes>
+        )
       }
-      {/* <Routes>
-        <Route path='/' element={<div>Home</div>} />
-        <Route path='/posts' element={
-          <Posts posts={posts} />
-        }
-        />
-      </Routes> */}
     </div>
 
   );

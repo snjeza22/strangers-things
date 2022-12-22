@@ -24,7 +24,9 @@ const Register = () => {
         if(!result.success){
           throw result.error.message
         }
+        // if register success
         console.log(result);
+        window.alert('Registration successful! You can use your new username and password to login');
       })
       .catch(err => console.log(err));
   }

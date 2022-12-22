@@ -1,15 +1,28 @@
-
-import React, { useState} from 'react';
-
+import React, { useState } from 'react';
 
 
-const Login = () => {
-  const [loginUsername, setLoginUsername] = useState('')
+
+const Login = (props) => {
+  const [loginUsername, setLoginUsername] = useState('');
   const [loginPassword, setLoginPassword] = useState('');
+  
+
+  const {
+    /*
+    loginUsername,
+    setLoginUsername,
+    loginPassword,
+    setLoginPassword,
+    */
+    setToken
+  } = props;
 
 
 
   const login = (ev) => {
+    // login by username and password
+    // uf succesfull we git TOKEN as a result
+    // than we save token in localstrage
     ev.preventDefault();
     console.log('login');
     fetch('https://strangers-things.herokuapp.com/api/2209-FTB-ET-WEB-AM/users/login', {
@@ -26,18 +39,21 @@ const Login = () => {
     })
       .then(response => response.json())
       .then(result => {
-        if(!result.success){
+        if (!result.success) {
           throw result.error.message;
         }
         const token = result.data.token;
+        // we save token in localstorage
         window.localStorage.setItem('token', token);//we want to call it a token and it will access token
-        exchangeTokenForUser()
+        // also we save token in state of App component
+        setToken(token);
+        // exchangeTokenForUser()
       })
       .catch(err => console.log(err));
   }
 
   return (
-  <div>
+    <div>
       <form onSubmit={login}>
         <input
           placeholder='username'
@@ -45,13 +61,13 @@ const Login = () => {
           onChange={ev => setLoginUsername(ev.target.value)} />
         <input
           placeholder='password'
-          type = 'password'
+          type='password'
           value={loginPassword}
           onChange={ev => setLoginPassword(ev.target.value)} />
 
         <button>Login</button>
       </form>
-  </div>
+    </div>
   );
 };
 
