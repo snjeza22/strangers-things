@@ -14,7 +14,7 @@ import Posts from './components/Posts'
 const App = () => {
   const [user, setUser] = useState([]);
   const [posts, setPosts] = useState([]); //we want all app to have access to posts that is why we set the state here not in Posts.js
-  //const [post, setPost] = useState([])
+  
   const [token, setToken] = useState(null)
 
   const fetchPosts = () => {
@@ -47,6 +47,7 @@ const App = () => {
     setUser(user);
   })
   .catch(err => console.log(err));
+  
     }
   }
   useEffect (() => {
@@ -71,7 +72,7 @@ const App = () => {
       <Link to='/posts'>Posts ({posts.length})</Link>
     </nav>
       {
-        user._id ? <div> Welcome {user.username} <button onClick = { logout }>Logout</button>  <Posts posts={posts} /></div> : null //if we are not in a "form" we do not need to prevent default
+        user._id ? <div> Welcome {user.username} <button onClick = { logout }>Logout</button>  <Posts posts={posts} token = {token} /></div> : null //if we are not in a "form" we do not need to prevent default
       }
     
       {
