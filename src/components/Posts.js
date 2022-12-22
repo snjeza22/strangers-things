@@ -23,7 +23,7 @@ const Posts = (props) => {
         },
         body: JSON.stringify({
           post: {
-            title: "Snjeza's Post (fingers crossed",
+            title: "Snjeza's Post (fingers crossed)",
             description:
               'no descp, just hope :)',
             price: '$priceless',
@@ -34,35 +34,15 @@ const Posts = (props) => {
     )
       .then((response) => response.json())
       .then((result) => {
-        const post = result.data.post
+        const post = result.data.posts
         setPost(post)
         console.log(result);
       })
       .catch(console.error);
   };
 
-  const editPost = ()=>{
-    fetch(`http://strangers-things.herokuapp.com/api/COHORT-NAME/posts/`, {
-  method: "PATCH",
-  headers: {
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${token}`
-  },
-  body: JSON.stringify({
-    post: {
-      title: "My favorite stuffed animal",
-      description: "This is a pooh doll from 1973. It has been carefully taken care of since I first got it.",
-      price: "$480.00",
-      location: "New York, NY",
-      willDeliver: true
-    }
-  })
-}).then(response => response.json())
-  .then(result => {
-    console.log(result);
-  })
-  .catch(console.error);
-  }
+// 
+
   return (
     <div>
       <h1>Posts</h1>
@@ -94,9 +74,8 @@ const Posts = (props) => {
                 <p>Location {post.location}</p>
                 <p>willDeliver {post.willDeliver}</p>
 
-                {post.isAuthor ? <button onClick = {
-                editPost(token)
-                }>Edit</button> : null}
+                {post.isAuthor ? <button 
+              >Edit</button> : null}
                 {/* //null means that if we are not the author that we should not be rendering anything */}
                 {post.isAuthor ? <button >Delete</button> : null}
               </div>
