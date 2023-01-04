@@ -169,7 +169,7 @@ const Posts = (props) => {
                     />
                   </>
                 ) : (
-                  <button>Sent Message</button>
+                  <button>Send Message</button>
                 )}
                 {/* //null means that if we are not the author that we should not be rendering anything */}
                 {post.isAuthor ? <button onClick={() => { deletePost(post._id) }}>Delete</button> : null}

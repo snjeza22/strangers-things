@@ -63,7 +63,7 @@ const App = () => {
           <div>
             <nav>
               <Link to='/' className='selected'>Home</Link>
-              <Link to='/posts' className='selected'></Link>
+              <Link to='/posts' className='selected'>POSTS</Link>
               <button onClick={logout}>Logout</button>
             </nav>
             Welcome {user.username} </div> : null //if we are not in a "form" we do not need to prevent default
